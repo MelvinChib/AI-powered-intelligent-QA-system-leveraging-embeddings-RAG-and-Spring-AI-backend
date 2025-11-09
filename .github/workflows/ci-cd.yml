@@ -64,14 +64,7 @@ jobs:
         SPRING_DATA_REDIS_PORT: 6379
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     
-    - name: Generate test report
-      uses: dorny/test-reporter@v1
-      if: always()
-      continue-on-error: true
-      with:
-        name: Maven Tests
-        path: '**/surefire-reports/*.xml'
-        reporter: java-junit
+
 
   security-scan:
     runs-on: ubuntu-latest
@@ -124,7 +117,7 @@ jobs:
       run: ./mvnw clean package -DskipTests
     
     - name: Upload JAR artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: application-jar
         path: target/*.jar
